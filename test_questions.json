@@ -1,0 +1,75 @@
+
+[
+  {
+    "id": 1,
+    "question": "When does the semester begin?",
+    "expected": "5 August 2026",
+    "scenario": "direct answer"
+  },
+  {
+    "id": 2,
+    "question": "What GPA is required for a scholarship, and where is the welfare office?",
+    "expected": "GPA 8.0 or higher and office in Administration Block, Room 104",
+    "scenario": "two documents"
+  },
+  {
+    "id": 3,
+    "question": "Who won the 2022 FIFA World Cup?",
+    "expected": "Insufficient evidence",
+    "scenario": "unanswerable"
+  },
+  {
+    "id": 4,
+    "question": "By what date must I enroll in semester courses?",
+    "expected": "12 August 2026",
+    "scenario": "paraphrase"
+  },
+  {
+    "id": 5,
+    "question": "What time does the library close?",
+    "expected": "Conflicting evidence",
+    "scenario": "contradictory documents"
+  },
+  {
+    "id": 6,
+    "question": "How many books may I borrow?",
+    "expected": "Three books",
+    "scenario": "library policy"
+  },
+  {
+    "id": 7,
+    "question": "How long can I keep borrowed books?",
+    "expected": "Fourteen days",
+    "scenario": "paraphrase"
+  },
+  {
+    "id": 8,
+    "question": "What must I bring to an exam?",
+    "expected": "Identity card and hall ticket",
+    "scenario": "examination policy"
+  },
+  {
+    "id": 9,
+    "question": "How early should I reach the examination hall?",
+    "expected": "At least 30 minutes early",
+    "scenario": "paraphrase"
+  },
+  {
+    "id": 10,
+    "question": "Where is the welfare office and when is it open?",
+    "expected": "Administration Block, Room 104; 10 AM to 4 PM weekdays",
+    "scenario": "combined information"
+  },
+  {
+    "id": 11,
+    "question": "What is the library late-return fine?",
+    "expected": "5 rupees per book per day",
+    "scenario": "library policy"
+  },
+  {
+    "id": 12,
+    "question": "Who helps with portal login problems?",
+    "expected": "IT help desk in the computer centre",
+    "scenario": "student services"
+  }
+]
