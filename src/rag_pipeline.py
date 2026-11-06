@@ -1,3 +1,9 @@
+"""College Knowledge Assistant — Core RAG retrieval pipeline.
+
+Provides the ``CollegeRAG`` class which ingests PDF/TXT documents, builds
+a dual TF-IDF index (word + character n-grams), and answers questions using
+blended cosine-similarity scoring with query expansion and conflict detection.
+"""
 
 from __future__ import annotations
 

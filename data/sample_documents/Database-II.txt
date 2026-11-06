@@ -1,0 +1,9 @@
+
+LIBRARY POLICY
+
+The college library is located in the central academic building.
+The regular library opening hours are 9:00 AM to 8:00 PM, Monday to Saturday.
+Students must present their college identity card to borrow books.
+Students may borrow up to three books for fourteen days.
+A late return fine of 5 rupees per book per day applies.
+The library is closed on Sundays and official college holidays.

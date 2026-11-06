@@ -1,10 +1,15 @@
+"""College Knowledge Assistant — Streamlit web application.
+
+Upload college PDF and TXT documents, build a searchable knowledge base,
+and ask questions to get extracted answers with source citations.
+"""
 
 from pathlib import Path
 import hashlib
 
 import streamlit as st
 
-from rag_pipeline import CollegeRAG
+from src.rag_pipeline import CollegeRAG
 
 
 # --------------------------------------------------
@@ -17,8 +22,8 @@ st.set_page_config(
     layout="wide",
 )
 
-BASE_DIR = Path(__file__).resolve().parent
-DOCUMENTS_DIR = BASE_DIR / "documents"
+BASE_DIR = Path(__file__).resolve().parent.parent
+DOCUMENTS_DIR = BASE_DIR / "data" / "sample_documents"
 SUPPORTED_EXTENSIONS = {".txt", ".pdf"}
 
 DOCUMENTS_DIR.mkdir(parents=True, exist_ok=True)
