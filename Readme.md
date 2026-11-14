@@ -1,23 +1,28 @@
-# 🎓 College Knowledge Assistant
+<div align="center">
 
-**A lightweight, offline RAG pipeline that retrieves precise answers from college documents — no LLM API required.**
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=180&section=header&text=College%20Knowledge%20Assistant&fontSize=42&fontColor=ffffff&animation=fadeIn&fontAlignY=35&desc=RAG%20Pipeline%20%7C%20Document%20QA%20%7C%20No%20LLM%20Required&descSize=16&descAlignY=55"/>
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-green)
-![Tests](https://img.shields.io/badge/tests-14%20passing-brightgreen)
-![Streamlit](https://img.shields.io/badge/UI-Streamlit-FF4B4B?logo=streamlit&logoColor=white)
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3.10+-14354C?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-013243?style=for-the-badge&logo=numpy&logoColor=white)
+![Pytest](https://img.shields.io/badge/Pytest-0A9EDC?style=for-the-badge&logo=pytest&logoColor=white)
+
+<br/>
+
+A lightweight, offline **Retrieval-Augmented Generation** pipeline that retrieves precise answers from college documents with source citations — **no paid LLM API required**.
 
 ---
 
-## Overview
+[Features](#-features) · [Architecture](#-architecture) · [Getting Started](#-getting-started) · [How It Works](#-how-it-works) · [Testing](#-testing) · [Examples](#-examples)
 
-College Knowledge Assistant is a Python-based Retrieval-Augmented Generation (RAG) system purpose-built for answering questions about college policies, procedures, and documents. Unlike typical RAG systems that depend on expensive cloud-hosted LLMs, this project uses **extractive retrieval** — it finds and returns the most relevant passages directly from your documents, complete with source citations.
+</div>
 
-Upload your college PDFs and text files, ask a question in plain English, and get back highlighted answers with page numbers and filenames. The entire pipeline runs locally on your machine with zero API costs.
+<br/>
 
----
-
-## Features
+## ✨ Features
 
 - 📄 **Multi-format document ingestion** — Parse PDFs (via PyMuPDF) and plain text files with full metadata preservation
 - 🔍 **Dual TF-IDF retrieval** — Blended word n-gram and character n-gram scoring for robust passage matching
@@ -31,170 +36,169 @@ Upload your college PDFs and text files, ask a question in plain English, and ge
 
 ---
 
-## Architecture
+## 🏗️ Architecture
 
 ```mermaid
 flowchart TD
-    A["📁 Documents\n(PDF / TXT)"] --> B["📝 Text Extraction\n& Metadata Capture"]
-    B --> C["✂️ Chunking\n(configurable size + overlap)"]
+    A["📁 Documents (PDF / TXT)"] --> B["📝 Text Extraction & Metadata Capture"]
+    B --> C["✂️ Chunking (configurable size + overlap)"]
     C --> D["📊 Dual TF-IDF Indexing"]
     D --> D1["Word N-grams Index"]
     D --> D2["Char N-grams Index"]
 
-    Q["❓ User Query"] --> E["🔄 Query Expansion\n(synonym mapping)"]
+    Q["❓ User Query"] --> E["🔄 Query Expansion (synonym mapping)"]
     E --> F["🔍 Blended Scoring"]
 
     D1 --> F
     D2 --> F
 
-    F --> G{"Score Above\nThreshold?"}
-    G -- Yes --> H["📎 Return Passages\nwith Source Citations"]
-    G -- No --> I["🚫 Abstain\n(no confident answer)"]
+    F --> G{"Score Above Threshold?"}
+    G -- Yes --> H["📎 Return Passages with Source Citations"]
+    G -- No --> I["🚫 Abstain (no confident answer)"]
 
     H --> J["⚠️ Conflict Detection"]
     J --> K["🖥️ Streamlit UI"]
     I --> K
 ```
 
-**Scoring breakdown:**
+<div align="center">
 
 | Component | Weight | Description |
-|---|---|---|
+|-----------|--------|-------------|
 | Word TF-IDF cosine similarity | 60% | Primary semantic match on word-level n-grams |
 | Char TF-IDF cosine similarity | 20% | Captures partial word matches and morphological variants |
 | Exact token overlap | 15% | Rewards direct keyword hits between query and passage |
 | Expanded token overlap | 5% | Accounts for synonym-expanded query terms |
 
----
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.10 or higher
-- pip (Python package manager)
-
-### Installation
-
-**1. Clone the repository**
-
-```bash
-git clone https://github.com/Soham-Sahana/RAG.git
-cd RAG
-```
-
-**2. Create and activate a virtual environment**
-
-```bash
-# Linux / macOS
-python -m venv venv
-source venv/bin/activate
-
-# Windows
-python -m venv venv
-venv\Scripts\activate
-```
-
-**3. Install dependencies**
-
-```bash
-pip install -r requirements.txt
-```
-
-**4. Add your documents**
-
-Place your college PDF and TXT files into the `data/sample_documents/` directory.
-
-**5. Launch the app**
-
-```bash
-streamlit run src/app.py
-```
-
-The Streamlit interface will open in your default browser at `http://localhost:8501`.
+</div>
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-├── src/
-│   ├── app.py                  # Streamlit web application
-│   └── rag_pipeline.py         # Core RAG engine (CollegeRAG class)
-├── tests/
-│   ├── test_rag.py             # 14 automated test cases
-│   └── test_questions.json     # Test question bank with expected answers
-├── data/
-│   └── sample_documents/       # Sample college policy documents
-├── notebooks/
-│   ├── attention_is_all_you_need_rag.ipynb
-│   └── rag_tutorial.ipynb
-├── examples/
-│   ├── langchain_rag_app.py    # LangChain + FAISS + Ollama variant
-│   ├── rag_chatbot_with_llm.py # LLM-powered chatbot variant
-│   ├── chatbot_demo.py         # Simple chatbot demo
-│   ├── streamlit_tutorial.py   # Streamlit basics tutorial
-│   ├── cnn_image_classifier.py # CNN classifier (bonus)
-│   └── cnn_model.py            # CNN model architecture
-├── docs/
-│   └── problem_statement.md    # Original project requirements
+College-Knowledge-Assistant/
+│
+├── 🖥️ Source
+│   ├── src/app.py                  # Streamlit web application
+│   └── src/rag_pipeline.py         # Core RAG engine (CollegeRAG class)
+│
+├── 🧪 Tests
+│   ├── tests/test_rag.py           # 14 automated test cases
+│   └── tests/test_questions.json   # Test question bank with expected answers
+│
+├── 📄 Data
+│   └── data/sample_documents/      # Sample college policy documents (6 files)
+│
+├── 📓 Notebooks
+│   ├── notebooks/attention_is_all_you_need_rag.ipynb
+│   └── notebooks/rag_tutorial.ipynb
+│
+├── 🔧 Examples
+│   ├── examples/langchain_rag_app.py      # LangChain + FAISS + Ollama variant
+│   ├── examples/rag_chatbot_with_llm.py   # LLM-powered chatbot variant
+│   ├── examples/chatbot_demo.py           # Simple chatbot demo
+│   ├── examples/streamlit_tutorial.py     # Streamlit basics tutorial
+│   ├── examples/cnn_image_classifier.py   # CNN classifier (bonus)
+│   └── examples/cnn_model.py             # CNN model architecture
+│
+├── 📖 Docs
+│   └── docs/problem_statement.md          # Original project requirements
+│
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
+├── CONTRIBUTING.md
 └── README.md
 ```
 
 ---
 
-## How It Works
+## 🚀 Getting Started
 
-The retrieval pipeline is implemented in `src/rag_pipeline.py` through the `CollegeRAG` class. Here is a step-by-step walkthrough of what happens when you ask a question:
+### Prerequisites
 
-### 1. Document Ingestion
+```bash
+pip install streamlit PyMuPDF scikit-learn numpy pytest
+```
 
-Documents are read from disk using PyMuPDF for PDFs and standard file I/O for text files. Each page or logical section is tagged with source metadata — the originating filename and page number — so that every answer can be traced back to its source.
+Or install from requirements:
 
-### 2. Chunking
+```bash
+python -m venv venv
+source venv/bin/activate       # Linux / macOS
+venv\Scripts\activate          # Windows
+pip install -r requirements.txt
+```
 
-Extracted text is split into overlapping chunks with configurable `chunk_size` and `overlap` parameters. Overlapping ensures that sentences near chunk boundaries are not lost, which is critical for questions whose answers span two adjacent sections.
+### Run the App
 
-### 3. Dual TF-IDF Index Construction
+```bash
+streamlit run src/app.py
+```
 
-Two separate TF-IDF vectorizers are built over the chunk corpus:
+The Streamlit interface will open in your browser at `http://localhost:8501`.
 
-- **Word n-grams** — Captures standard term-frequency signals at the word level.
-- **Character n-grams** — Captures sub-word patterns, making the system more resilient to typos, abbreviations, and morphological variations (e.g., matching "library" against "libraries").
-
-### 4. Query Expansion
-
-Before scoring, the user's query is expanded using a synonym map tailored to common college terminology. For example, a query about "fees" might expand to include "charges," "costs," and "tuition," improving recall without sacrificing precision.
-
-### 5. Blended Scoring
-
-Each chunk is scored against the (expanded) query using four signals, combined as a weighted sum:
-
-$$S = 0.60 \cdot \text{word\_tfidf} + 0.20 \cdot \text{char\_tfidf} + 0.15 \cdot \text{exact\_overlap} + 0.05 \cdot \text{expanded\_overlap}$$
-
-Chunks are ranked by this composite score. If the top score falls below a confidence threshold, the system abstains rather than returning a low-quality answer.
-
-### 6. Conflict Detection
-
-When the top-ranked passages originate from different source documents and contain contradictory information (e.g., two documents listing different library hours), the system flags the conflict and presents both sources to the user.
-
----
-
-## Testing
-
-Run the full test suite with:
+### Run Tests
 
 ```bash
 pytest tests/test_rag.py -v
 ```
 
-The 14 test cases validate the following scenarios:
+---
+
+## ⚙️ Tech Stack
+
+<div align="center">
+
+| Category | Technologies |
+|----------|-------------|
+| **Language** | Python 3.10+ |
+| **Web UI** | Streamlit |
+| **Retrieval** | scikit-learn (TF-IDF + Cosine Similarity) |
+| **PDF Parsing** | PyMuPDF |
+| **Data** | NumPy |
+| **Testing** | pytest |
+| **LLM Required?** | ❌ No — fully extractive retrieval |
+
+</div>
+
+---
+
+## 🔬 How It Works
+
+### 1. Document Ingestion
+Documents are read from disk using PyMuPDF for PDFs and standard file I/O for text files. Each page is tagged with source metadata — filename and page number — so every answer traces back to its source.
+
+### 2. Chunking
+Extracted text is split into overlapping chunks with configurable `chunk_size` and `overlap`. Overlapping ensures sentences near chunk boundaries are not lost.
+
+### 3. Dual TF-IDF Index
+Two separate TF-IDF vectorizers are built:
+- **Word n-grams** — Standard term-frequency signals at the word level
+- **Character n-grams** — Sub-word patterns for resilience to typos and morphological variations
+
+### 4. Query Expansion
+Queries are expanded using a synonym map tailored to college terminology. A query about "library hours" automatically includes "opening," "closing," "timing," and "schedule."
+
+### 5. Blended Scoring
+Each chunk is scored using four signals combined as a weighted sum:
+
+```
+Score = 0.60 × word_tfidf + 0.20 × char_tfidf + 0.15 × exact_overlap + 0.05 × expanded_overlap
+```
+
+### 6. Conflict Detection
+When top passages from different documents contain contradictory information (e.g., different library hours), the system flags the conflict and presents both sources.
+
+---
+
+## 🧪 Testing
+
+<div align="center">
 
 | Category | What is tested |
-|---|---|
+|----------|---------------|
 | **Single-document answers** | Correct passage retrieval from a single source |
 | **Multi-document synthesis** | Combining information across multiple documents |
 | **Unanswerable questions** | Proper abstention when no relevant passage exists |
@@ -206,54 +210,60 @@ The 14 test cases validate the following scenarios:
 | **Source metadata** | Verifying that filenames and page numbers are preserved |
 | **Edge cases** | Handling blank or empty queries gracefully |
 
-Test questions and expected answers are defined in `tests/test_questions.json`, making it easy to extend the suite.
+</div>
 
 ---
 
-## Examples
+## 🔧 Examples
 
-The `examples/` directory contains alternative implementations and demos for learning and experimentation:
-
-- **`langchain_rag_app.py`** — A variant using LangChain, FAISS vector store, and Ollama for local LLM-powered answers.
-- **`rag_chatbot_with_llm.py`** — A conversational chatbot that feeds retrieved passages into an LLM for generated (abstractive) answers.
-- **`chatbot_demo.py`** — A minimal chatbot skeleton for quick prototyping.
-- **`streamlit_tutorial.py`** — A step-by-step Streamlit tutorial for newcomers to the framework.
-- **`cnn_image_classifier.py` / `cnn_model.py`** — Bonus: a CNN-based image classifier demonstrating a different ML pipeline.
-
----
-
-## Limitations
-
-This project intentionally uses TF-IDF for retrieval rather than dense semantic embeddings. This comes with trade-offs worth understanding:
-
-- **Lexical matching only** — TF-IDF relies on surface-level word overlap. Semantically similar but lexically different queries (e.g., "tuition waiver" vs. "fee exemption") may miss relevant passages unless covered by the synonym map.
-- **No generative answers** — The system returns extracted passages verbatim. It does not synthesize or rephrase answers in natural language.
-- **Static synonym map** — Query expansion depends on a hand-curated synonym dictionary. Unseen terminology requires manual updates.
-- **No cross-encoder reranking** — Passages are ranked by a single-stage retrieval score. Adding a cross-encoder reranker could improve precision.
-- **Scale ceiling** — TF-IDF with scikit-learn works well for hundreds to low thousands of documents. For larger corpora, consider migrating to FAISS or a dedicated vector database.
-
-> For production deployments requiring deeper semantic understanding, consider the LangChain + embedding model variant in `examples/langchain_rag_app.py`.
+| Example | Description |
+|---------|-------------|
+| [**LangChain RAG App**](examples/langchain_rag_app.py) | Variant using LangChain, FAISS vector store, and Ollama for local LLM-powered answers |
+| [**RAG Chatbot with LLM**](examples/rag_chatbot_with_llm.py) | Conversational chatbot that feeds retrieved passages into an LLM for abstractive answers |
+| [**Chatbot Demo**](examples/chatbot_demo.py) | Minimal chatbot skeleton for quick prototyping |
+| [**Streamlit Tutorial**](examples/streamlit_tutorial.py) | Step-by-step Streamlit tutorial for framework newcomers |
+| [**CNN Image Classifier**](examples/cnn_image_classifier.py) | Bonus: CNN-based image classifier demonstrating a different ML pipeline |
 
 ---
 
-## Contributing
+## 📖 Key Concepts Covered
 
-Contributions are welcome! Here is how to get started:
-
-1. **Fork** the repository
-2. **Create a feature branch** — `git checkout -b feature/your-feature-name`
-3. **Write tests** for any new functionality in `tests/test_rag.py`
-4. **Run the test suite** — `pytest tests/test_rag.py -v` (all tests must pass)
-5. **Submit a pull request** with a clear description of your changes
-
-Please keep pull requests focused on a single change and follow the existing code style.
+- **Retrieval-Augmented Generation (RAG)** — Grounding answers in source documents
+- **TF-IDF Vectorization** — Classical information retrieval with word and character n-grams
+- **Cosine Similarity** — Measuring semantic closeness between query and document chunks
+- **Query Expansion** — Synonym-based recall improvement
+- **Conflict Detection** — Identifying contradictory information across multiple sources
+- **Extractive QA** — Returning verbatim passages instead of generated text
+- **Document Chunking** — Splitting documents with configurable overlap for boundary coverage
 
 ---
 
-## License
+## ⚠️ Limitations
 
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
+- **Lexical matching only** — TF-IDF relies on surface-level word overlap; semantically similar but lexically different queries may miss passages
+- **No generative answers** — Returns extracted passages verbatim without synthesis
+- **Static synonym map** — Query expansion depends on a hand-curated dictionary
+- **No cross-encoder reranking** — Single-stage retrieval scoring only
+- **Scale ceiling** — Works well for hundreds to low thousands of documents
+
+> 💡 For deeper semantic understanding, see the LangChain + embedding model variant in [`examples/langchain_rag_app.py`](examples/langchain_rag_app.py)
 
 ---
 
-*Built with curiosity and Python — no cloud LLM budget required.* ✨
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome! Feel free to open an issue or submit a pull request.
+
+---
+
+## 📬 Contact
+
+**Soham Sahana** — [GitHub](https://github.com/Soham-Sahana)
+
+---
+
+<div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer"/>
+
+</div>
