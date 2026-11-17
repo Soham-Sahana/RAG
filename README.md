@@ -239,7 +239,7 @@ pytest tests/test_rag.py -v
 - **Static synonym map** — Needs manual updates for new terminology
 - **Scale ceiling** — Best suited for hundreds to a few thousand document chunks
 
-> 💡 For generative LLM / LangChain variants and deep learning projects, check out the companion [Streamlit-ML-Showcase](https://github.com/Soham-Sahana/Streamlit-ML-Showcase) repository.
+> 💡 For generative LLM / LangChain variants and deep learning projects, check out the companion [Streamlit-AI-Showcase](https://github.com/Soham-Sahana/Streamlit-AI-Showcase) repository.
 
 ---
 
