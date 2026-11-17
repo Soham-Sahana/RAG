@@ -20,7 +20,7 @@
 
 <br/>
 
-**[✨ Features](#-features) · [🏗️ Architecture](#%EF%B8%8F-architecture) · [🚀 Quick Start](#-quick-start) · [🔬 How It Works](#-how-it-works) · [🧪 Testing](#-testing) · [🔧 Examples](#-examples)**
+**[✨ Features](#-features) · [🏗️ Architecture](#%EF%B8%8F-architecture) · [🚀 Quick Start](#-quick-start) · [🔬 How It Works](#-how-it-works) · [🧪 Testing](#-testing)**
 
 </div>
 
@@ -93,20 +93,15 @@ RAG/
 │   └── test_questions.json           # Test question bank + expected answers
 │
 ├── 📄  data/
-│   └── sample_documents/             # 6 sample college policy docs (PDF/TXT)
+│   └── sample_documents/             # 6 official college policy docs (TXT)
 │
 ├── 📓  notebooks/
 │   ├── attention_is_all_you_need_rag.ipynb
 │   └── rag_tutorial.ipynb
 │
-├── 🔧  examples/
-│   ├── langchain_rag_app.py          # LangChain + FAISS + Ollama variant
-│   ├── rag_chatbot_with_llm.py       # LLM-powered chatbot
-│   ├── chatbot_demo.py               # Minimal chatbot demo
-│   ├── streamlit_tutorial.py         # Streamlit basics walkthrough
-│   └── cnn_image_classifier.py       # Bonus: CNN image classifier
+├── 📖  docs/
+│   └── problem_statement.md          # Problem statement & evaluation rubric
 │
-├── 📖  docs/problem_statement.md
 ├── requirements.txt
 ├── .gitignore
 ├── LICENSE
@@ -141,7 +136,7 @@ pip install -r requirements.txt
 
 **4. Add your documents**
 
-Drop your college PDF or TXT files into `data/sample_documents/`.
+Drop your college PDF or TXT files into `data/sample_documents/` (or upload them directly in the Streamlit UI).
 
 **5. Launch the app**
 ```bash
@@ -225,18 +220,6 @@ pytest tests/test_rag.py -v
 
 ---
 
-## 🔧 Examples
-
-| File | Description |
-|------|-------------|
-| [`langchain_rag_app.py`](examples/langchain_rag_app.py) | LangChain + FAISS + Ollama — LLM-powered answers |
-| [`rag_chatbot_with_llm.py`](examples/rag_chatbot_with_llm.py) | Full chatbot feeding retrieved passages into an LLM |
-| [`chatbot_demo.py`](examples/chatbot_demo.py) | Minimal chatbot skeleton for quick prototyping |
-| [`streamlit_tutorial.py`](examples/streamlit_tutorial.py) | Streamlit basics walkthrough |
-| [`cnn_image_classifier.py`](examples/cnn_image_classifier.py) | Bonus: CNN image classifier (CIFAR-10 / custom dataset) |
-
----
-
 ## 📖 Key Concepts Covered
 
 - **Retrieval-Augmented Generation (RAG)** — Grounding answers in real source documents
@@ -256,7 +239,7 @@ pytest tests/test_rag.py -v
 - **Static synonym map** — Needs manual updates for new terminology
 - **Scale ceiling** — Best suited for hundreds to a few thousand document chunks
 
-> 💡 For semantic retrieval, see [`examples/langchain_rag_app.py`](examples/langchain_rag_app.py) which uses dense HuggingFace embeddings + FAISS.
+> 💡 For generative LLM / LangChain variants and deep learning projects, check out the companion [Streamlit-ML-Showcase](https://github.com/Soham-Sahana/Streamlit-ML-Showcase) repository.
 
 ---
 
